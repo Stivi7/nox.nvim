@@ -27,8 +27,10 @@ return {
         end,
       })
 
+      local lspconfig = require("lspconfig")
+
       -- TypeScript configuration
-      require("lspconfig").ts_ls.setup({
+      lspconfig.ts_ls.setup({
         filetypes = { 
           "typescript", 
           "typescriptreact", 
@@ -61,7 +63,6 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "ts_ls", -- TypeScript
-          "eslint",   -- ESLint
         },
         automatic_installation = true,
       })
