@@ -20,6 +20,8 @@ vim.o.incsearch = true
 
 vim.o.termguicolors = true
 
+-- vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250,sm:block-blinkwait175-blinkoff150-blinkon175"
+
 -- Create an autocmd group for transparent background settings
 local transparent_bg_group = vim.api.nvim_create_augroup("TransparentBackground", { clear = true })
 
