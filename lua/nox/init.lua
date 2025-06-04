@@ -1,6 +1,7 @@
 
 require("nox.remap")
 require("nox.editor")
+require("nox.commands")
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
