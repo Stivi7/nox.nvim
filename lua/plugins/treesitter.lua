@@ -3,10 +3,12 @@ return {
   branch = "master",
   lazy = false,
   build = ":TSUpdate",
-  config = true, -- This ensures the opts are applied
+  config = function(_, opts)
+    require("nvim-treesitter.configs").setup(opts)
+  end,
   opts = {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-    ensure_installed = { "javascript", "typescript", "vim" },
+    ensure_installed = { "javascript", "typescript", "vim", "prisma" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
