@@ -41,6 +41,17 @@ return {
         },
         root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
       })
+
+      lspconfig.prismals.setup({
+        cmd = { "prisma-language-server", "--stdio" },
+        filetypes = { "prisma" },
+        root_dir = require("lspconfig.util").root_pattern(".git", "package.json"),
+        settings = {
+          prisma = {
+            prismaFmtBinPath = "", -- optional: specify path to prismaFmt binary if needed
+          },
+        },
+      })
     end
   },
 
@@ -63,6 +74,7 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "ts_ls", -- TypeScript
+          "prismals",
         },
         automatic_installation = true,
       })
