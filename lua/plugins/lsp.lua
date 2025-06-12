@@ -52,6 +52,12 @@ return {
           },
         },
       })
+
+      lspconfig.svelte.setup({
+        cmd = { "svelteserver", "--stdio" },
+        filetypes = { "svelte" },
+        root_dir = require("lspconfig.util").root_pattern("package.json", ".git"),
+      })
     end
   },
 
@@ -75,6 +81,7 @@ return {
         ensure_installed = {
           "ts_ls", -- TypeScript
           "prismals",
+          "svelte",
         },
         automatic_installation = true,
       })
