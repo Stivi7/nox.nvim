@@ -17,6 +17,19 @@ return {
     end,
   },
   {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    opts = {
+      flavour = "latte",
+      transparent_background = true
+    },
+    lazy = true,
+    config = function()
+      vim.cmd.colorscheme "catppuccin"
+    end
+  },
+  {
     "rose-pine/neovim",
     lazy = true,
     name = "rose-pine",
