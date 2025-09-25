@@ -27,10 +27,8 @@ return {
         end,
       })
 
-      local lspconfig = require("lspconfig")
-
       -- TypeScript configuration
-      lspconfig.ts_ls.setup({
+      vim.lsp.config('ts_ls', {
         filetypes = { 
           "typescript", 
           "typescriptreact", 
@@ -39,13 +37,14 @@ return {
           "javascriptreact", 
           "javascript.jsx" 
         },
-        root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+        root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
       })
 
-      lspconfig.prismals.setup({
+      -- Prisma configuration
+      vim.lsp.config('prismals', {
         cmd = { "prisma-language-server", "--stdio" },
         filetypes = { "prisma" },
-        root_dir = require("lspconfig.util").root_pattern(".git", "package.json"),
+        root_markers = { ".git", "package.json" },
         settings = {
           prisma = {
             prismaFmtBinPath = "", -- optional: specify path to prismaFmt binary if needed
@@ -53,11 +52,15 @@ return {
         },
       })
 
-      lspconfig.svelte.setup({
+      -- Svelte configuration
+      vim.lsp.config('svelte', {
         cmd = { "svelteserver", "--stdio" },
         filetypes = { "svelte" },
-        root_dir = require("lspconfig.util").root_pattern("package.json", ".git"),
+        root_markers = { "package.json", ".git" },
       })
+      
+      -- Enable all configured LSP servers
+      vim.lsp.enable({ 'ts_ls', 'prismals', 'svelte' })
     end
   },
 
