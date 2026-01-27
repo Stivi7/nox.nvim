@@ -27,37 +27,70 @@ return {
         end,
       })
 
-      local lspconfig = require("lspconfig")
-
-      -- TypeScript configuration
-      lspconfig.ts_ls.setup({
-        filetypes = { 
-          "typescript", 
-          "typescriptreact", 
-          "typescript.tsx", 
-          "javascript", 
-          "javascriptreact", 
-          "javascript.jsx" 
-        },
-        root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
-      })
-
-      lspconfig.prismals.setup({
-        cmd = { "prisma-language-server", "--stdio" },
-        filetypes = { "prisma" },
-        root_dir = require("lspconfig.util").root_pattern(".git", "package.json"),
-        settings = {
-          prisma = {
-            prismaFmtBinPath = "", -- optional: specify path to prismaFmt binary if needed
+      if vim.fn.has("nvim-0.11") == 1 then
+        vim.lsp.config("ts_ls", {
+          filetypes = {
+            "typescript",
+            "typescriptreact",
+            "typescript.tsx",
+            "javascript",
+            "javascriptreact",
+            "javascript.jsx",
           },
-        },
-      })
+          root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
+        })
 
-      lspconfig.svelte.setup({
-        cmd = { "svelteserver", "--stdio" },
-        filetypes = { "svelte" },
-        root_dir = require("lspconfig.util").root_pattern("package.json", ".git"),
-      })
+        vim.lsp.config("prismals", {
+          cmd = { "prisma-language-server", "--stdio" },
+          filetypes = { "prisma" },
+          root_markers = { ".git", "package.json" },
+          settings = {
+            prisma = {
+              prismaFmtBinPath = "",
+            },
+          },
+        })
+
+        vim.lsp.config("svelte", {
+          cmd = { "svelteserver", "--stdio" },
+          filetypes = { "svelte" },
+          root_markers = { "package.json", ".git" },
+        })
+
+        vim.lsp.enable({ "ts_ls", "prismals", "svelte" })
+      else
+        local lspconfig = require("lspconfig")
+        local util = require("lspconfig.util")
+
+        lspconfig.ts_ls.setup({
+          filetypes = {
+            "typescript",
+            "typescriptreact",
+            "typescript.tsx",
+            "javascript",
+            "javascriptreact",
+            "javascript.jsx",
+          },
+          root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+        })
+
+        lspconfig.prismals.setup({
+          cmd = { "prisma-language-server", "--stdio" },
+          filetypes = { "prisma" },
+          root_dir = util.root_pattern(".git", "package.json"),
+          settings = {
+            prisma = {
+              prismaFmtBinPath = "",
+            },
+          },
+        })
+
+        lspconfig.svelte.setup({
+          cmd = { "svelteserver", "--stdio" },
+          filetypes = { "svelte" },
+          root_dir = util.root_pattern("package.json", ".git"),
+        })
+      end
     end
   },
 
@@ -88,4 +121,3 @@ return {
     end
   },
 }
-
